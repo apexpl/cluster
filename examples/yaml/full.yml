@@ -1,0 +1,49 @@
+
+####################
+# Full Example
+# Includes all previous examples, plus a boradcast queue.####################
+####################
+
+routes:
+
+  image_upload:
+    type: queue
+    instances:
+      - app2
+    routing_keys:
+      orders.images.upload: App\Shop\Orders
+
+
+  ####################
+  # The below route will only accept messages that have a request method of POST, and 
+  # and URI ends with /login.
+  ####################
+  user_login:
+    type: rpc
+    instances:
+      - ~app2
+    params:
+      method: "== POST"
+      uri: "=~ \\/login$"
+    routing_keys:
+      syrus.template.parse: App\Users\Login
+
+
+  general.rpc:
+    type: rpc
+    instances:
+      - ~app2
+    routing_keys:
+      users.profile: 
+        default: App\Users\Profiles
+        shop: App\Shop\Users
+      financial.orders: App\Shop\Orders
+      all: App\~package.title~\~module.title~
+
+  broadcast.cluster:
+    type: broadcast
+    instances: all
+    routing_keys:
+      cluster.sys: Apex\Cluster\Sys\Sys
+
+

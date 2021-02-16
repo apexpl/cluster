@@ -1,0 +1,18 @@
+
+####################
+# Multiple PHP Classes Example
+# Extending on the basic example, this modifies the "users.profile" routing key to route 
+# messages to two different PHP classes.
+####################
+
+
+routes:
+
+  general.rpc:
+    type: rpc
+    routing_keys:
+      users.profile: 
+        default: App\Users\Profiles
+        shop: App\Shop\Users
+      financial.orders: App\Shop\Orders
+

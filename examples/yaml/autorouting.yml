@@ -1,0 +1,19 @@
+
+####################
+# Auto Routing Example
+# Extending on the multi example, this adds an additional "catch all" route that utilizes auto-routing.
+####################
+
+
+routes:
+
+  general.rpc:
+    type: rpc
+    routing_keys:
+      users.profile: 
+        default: App\Users\Profiles
+        shop: App\Shop\Users
+      financial.orders: App\Shop\Orders
+      all: App\~package.title~\~module.title~
+
+

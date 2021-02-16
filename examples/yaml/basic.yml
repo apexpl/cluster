@@ -1,0 +1,16 @@
+
+####################
+# Basic Example
+#
+# Simple RPC configuration with two routes, and round robin to all listeners.
+####################
+
+
+routes:
+
+  general.rpc:
+    type: rpc
+    routing_keys:
+      users.profile: App\Users\Profiles
+      financial.orders: App\Shop\Orders
+

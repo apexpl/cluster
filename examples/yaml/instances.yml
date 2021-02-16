@@ -1,0 +1,51 @@
+
+####################
+# Specific Instances Example
+# Extending on the queue example, the definitions below are modified so 
+# only app2 accepts the queue messages, while app1 accepts the RPC messages.  For this example 
+# to work, you must spur two listeners with the commands:
+#
+#     php listen.php instances app1
+#     php listen.php instances app2
+####################
+
+
+routes:
+
+  image_upload:
+    type: queue
+    instances:
+      - app2
+    routing_keys:
+      orders.images.upload: App\Shop\Orders
+
+
+  ####################
+  # The below route will only accept messages that have a request method of POST, and 
+  # and URI ends with /login.
+  ####################
+  user_login:
+    type: rpc
+    instances:
+      - ~app2
+    params:
+      method: "== POST"
+      uri: "=~ \\/login$"
+    routing_keys:
+      syrus.template.parse: App\Users\Login
+
+
+  general.rpc:
+    type: rpc
+    instances:
+      - ~app2
+    routing_keys:
+      users.profile: 
+        default: App\Users\Profiles
+        shop: App\Shop\Users
+      financial.orders: App\Shop\Orders
+      all: App\~package.title~\~module.title~
+
+
+
+#     php listen.php app2

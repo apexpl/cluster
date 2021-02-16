@@ -1,0 +1,34 @@
+
+# Remove this line if you want Cluster to utilize the configuration below.
+ignore: true
+
+####################
+# Routes
+#
+# Below defines all routes that are configured across all server 
+# instances.  This informs Cluster which PHP classes to route which messages to.
+#
+# Please see the /docs/router_yaml.md file for details.
+####################
+
+routes:
+
+  rpc.default:
+    type: rpc
+    instances: all
+    routing_keys: 
+      all: App\~package.title~\~module.title~
+
+  queue.default:
+    type: queue
+    instances: all
+    routing_keys:
+      all: App\~package.title~\~module.title~
+
+  broadcast.cluster:
+    type: broadcast
+    instances: all
+    routing_keys:
+      cluster.sys: Apex\Cluster\Sys\Sys
+
+
