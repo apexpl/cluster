@@ -17,21 +17,21 @@ Cluster provides a simple yet intuitive interface to implement horizontal scalin
 
 ## Table of Contents
 
-1. [Cluster class / Container Definitions](cluster.md)
-2. [Router Overview](router.md)
-    1. [Adding Routes in PHP](router_php.md)
-    2. [Router YAML Configuration File](router_yaml.md)
-    3. [Auto Routing](router_auto.md)
-    4. [Parameter Based Routing](router_params.md)
-    5. [Enable redis Autoloading](redis.md)
+1. [Cluster class / Container Definitions](https://github.com/apexpl/cluster/blob/master/docs/cluster.md)
+2. [Router Overview](https://github.com/apexpl/cluster/blob/master/docs/router.md)
+    1. [Adding Routes in PHP](https://github.com/apexpl/cluster/blob/master/docs/router_php.md)
+    2. [Router YAML Configuration File](https://github.com/apexpl/cluster/blob/master/docs/router_yaml.md)
+    3. [Auto Routing](https://github.com/apexpl/cluster/blob/master/docs/router_auto.md)
+    4. [Parameter Based Routing](https://github.com/apexpl/cluster/blob/master/docs/router_params.md)
+    5. [Enable redis Autoloading](https://github.com/apexpl/cluster/blob/master/docs/redis.md)
 3. Message Handling
-    1. [Listen / Consume Messages](listen.md)
-    2. [Dispatch Messages](dispatch.md)
-    3. [Fetch Messages from Queues](fetch.md)
+    1. [Listen / Consume Messages](https://github.com/apexpl/cluster/blob/master/docs/listen.md)
+    2. [Dispatch Messages](https://github.com/apexpl/cluster/blob/master/docs/dispatch.md)
+    3. [Fetch Messages from Queues](https://github.com/apexpl/cluster/blob/master/docs/fetch.md)
 4. Messages
-    1. [Message Requests](message_requests.md)
-    2. [Message Responses](message_responses.md)
-5. [Front-End Handlers](fe_handlers.md)
+    1. [Message Requests](https://github.com/apexpl/cluster/blob/master/docs/message_requests.md)
+    2. [Message Responses](https://github.com/apexpl/cluster/blob/master/docs/message_responses.md)
+5. [Front-End Handlers](https://github.com/apexpl/cluster/blob/master/docs/fe_handlers.md)
 
 ## Installation
 
