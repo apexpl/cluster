@@ -43,6 +43,22 @@ Install via Composer with:
 
 Please see the /examples/ directory for more in-depth examples.
 
+**Save Math.php Class**
+~~~php
+
+namespace App;
+
+class Math {
+
+    public function add(MessageRequestInterface $msg)
+    {
+        list($x, $y) = $msg->getParams();
+        return ($x + $y);
+    }
+}
+~~~
+
+
 **Define Listener**
 ~~~php
 use Apex\Cluster\Cluster;
@@ -53,24 +69,11 @@ use Apex\Cluster\Brokers\RabbitMQ;
 // Start cluster
 $cluster = new Cluster('app1');
 $cluster->setBroker(new RabbitMQ('localhost', 5672, 'guest', 'guest'));
-$cluster->addRoute('basic.math.*', 'Math');
+$cluster->addRoute('basic.math.*', App\Math::class);
 
 // Start listener
 $listener = new Listener();
 $listener->listen();
-
-/**
- * Math Class
- */
-class Math {
-
-    public function add(MessageRequestInterface $msg)
-    {
-        list($x, $y) = $msg->getParams();
-        return ($x + $y);
-    }
-
-}
 ~~~
 
 **Define Dispatcher**
@@ -83,7 +86,7 @@ $msg = new MessageRequest('basic.math.add', 6, 9);
 
 // Dispatch message
 $dispatcher = new Dispatcher('web1');
-$sum = $dispatcher->send($msg)->getResponse();
+$sum = $dispatcher->dispatch($msg)->getResponse();
 
 // Print result
 echo "Sum is: $sum\n";
