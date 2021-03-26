@@ -13,7 +13,8 @@ class Syrus extends Generic implements FeHandlerInterface
 {
 
     // Properties
-    private array $template_vars = [];
+    private array $vars = [];
+    private array $blocks = [];
     private array $callouts = [];
 
     /**
@@ -21,7 +22,20 @@ class Syrus extends Generic implements FeHandlerInterface
      */
     public function assign(string $key, mixed $value):void
     {
-        $this->template_vars[$key] = $value;
+        $this->vars[$key] = $value;
+    }
+
+    /**
+     * Add block
+     */
+    public function addBlock(string $name, array $values):void
+    {
+
+        if (!isset($this->blocked[$name])) { 
+            $this->blocked[$name] = [];
+        }
+        $this->blocks[$name][] = $values;
+
     }
 
     /**
@@ -33,61 +47,39 @@ class Syrus extends Generic implements FeHandlerInterface
     }
 
     /**
-     * Set URI
+     * Set template file
      */
-    public function setUri(string $uri, bool $is_locked = false)
+    public function setTemplateFile(string $file, bool $is_locked = false)
     {
-        $this->addAction('set_uri', [$uri, $is_locked]);
+        $this->addAction('set_template_file', [$file, $is_locked]);
     }
 
     /**
-     * Set theme
+     * Get vars
      */
-    public function setTheme(string $theme_alias):void
+    public function getVars():array
     {
-        $this->addAction('set_theme', $theme_alias);
+        return $this->vars;
     }
 
     /**
-     * Set area
+     * Get blocks
      */
-    public function setArea(string $area):void
+    public function getBlocks():array
     {
-        $this->addAction('set_area', $area);
+        return $this->blocks;
     }
 
     /**
-     * Set http status
+     * Get callouts
      */
-    public function setHttpStatus(int $code = 200:void
+    public function getCallouts():array
     {
-        $this->addAction('set_http_status', $code);
+        return $this->callouts;
     }
 
-    /**
-     * Set content type
-     */
-    public function setContentType(string $content_type = 'text/html'):void
-    {
-        $this->addAction('set_content_type', $content_type);
-    }
 
-    /**
-     * Set http header
-     */
-    public function setHttpHeader(string $key, string $value):void
-    {
-        $this->addAction('set_http_header', [$key, $value]);
-    }
 
-    /**
-     * Set cookie
-     */
-    public function setCookie(string $key, string $value):void
-    {
-        $this->addAction('set_cookie', [$key, $value]);
-    }
 
 }
-
 

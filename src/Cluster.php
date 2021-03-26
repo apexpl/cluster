@@ -5,7 +5,7 @@ namespace Apex\Cluster;
 
 use Apex\Container\Di;
 use Apex\Cluster\Router\Router;
-use Apex\Cluster\Interfaces\{BrokerInterface, ReceiverInterface};
+use Apex\Cluster\Interfaces\{BrokerInterface, ReceiverInterface, FeHandlerInterface};
 use Apex\Cluster\Exceptions\ClusterFileNotWriteableException;
 use Psr\Log\LoggerInterface;
 use redis;
@@ -51,7 +51,7 @@ class Cluster extends Router
     {
 
         // Get container file
-        if ($this->container_file == '') { 
+        if ($this->container_file !== null && $this->container_file == '') { 
             $this->container_file = __DIR__ . '/../config/container.php';
         }
 
@@ -77,23 +77,23 @@ class Cluster extends Router
 
         // Set base container items
         Di::set(__CLASS__, $this);
-        Di::set('container_file', $this->container_file);
+        Di::set('cluster.container_file', $this->container_file);
 
         // Add redis to container
-        if ($this->redis instanceof redis) { 
-            Di::set(redis::class, $this->redis);
-        } else { 
-            Di::set(redis::class, 'no_connect');
-        }
+        $redis_val = $this->redis instanceof redis ? $this->redis : 'no_connect';
+        Di::set(redis::class, $redis_val); 
+
+        // Mark necessary items as services
+        Di::markItemAsService(BrokerInterface::class);
+        Di::markItemAsService(FeHandlerInterface::class);
+        Di::markItemAsService(LoggerInterface::class);
+        Di::markItemAsService(ReceiverInterface::class);
 
         // Instantiate logger
-        if (Di::has(LoggerInterface::class)) { 
-            $this->logger = Di::makeset(LoggerInterface::class);
-        }
+        $this->logger = Di::get(LoggerInterface::class);
 
         // Load routes
         $this->loadRoutes($this->router_file);
-
     }
 
     /**

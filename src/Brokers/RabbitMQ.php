@@ -222,7 +222,7 @@ class RabbitMQ implements BrokerInterface
 
         // Wait for response, if RPC call
         try { 
-            $secs = Di::get('timeout_seconds') ?? 5;
+            $secs = Di::get('cluster.timeout_seconds') ?? 5;
             $this->wait(true, (int) $secs);
         } catch (AMQPTimeoutException $e) { 
 
@@ -233,8 +233,8 @@ class RabbitMQ implements BrokerInterface
             $cluster = Di::get(Cluster::class);
             $cluster->addLog("RPC timeout with routing key: " . $msg->getRoutingKey(), 'warning');
 
-            if (Di::has('timeout_handler')) {
-                Di::call('timeout_handler', ['msg' => $msg]);
+            if (Di::has('cluster.timeout_handler')) {
+                Di::call('cluster.timeout_handler', ['msg' => $msg]);
             } else { 
                 throw new ClusterTimeoutException("The RPC call has timed out, and no RPC server is currently reachable.  please try again later.");
             }

@@ -52,9 +52,9 @@ class Dispatcher
         if ($msg->getType() == 'rpc' && $fe_handler_callback !== null) { 
             $fe_handler = $response->getFeHandler();
             call_user_func($fe_handler_callback, $fe_handler);
-        } elseif ($msg->getType() == 'rpc' && Di::has('fe_handler_callback')) { 
+        } elseif ($msg->getType() == 'rpc' && Di::has('cluster.fe_handler_callback')) { 
             $fe_handler = $response->getFeHandler();
-            Di::call('fe_handler_callback', ['handler' => $fe_handler]);
+            Di::call('cluster.fe_handler_callback', ['handler' => $fe_handler]);
         }
 
         // Return

@@ -44,13 +44,13 @@ class Receiver implements ReceiverInterface
         // Invoke message preparation handler, if needed
         if ($this->prepare_msg_handler !== null) { 
             call_user_func($this->prepare_msg_handler, $msg);
-        } elseif (Di::has('prepare_msg_handler')) { 
-            Di::call('prepare_msg_handler', ['msg' => $msg]);
+        } elseif (Di::has('cluster.prepare_msg_handler')) { 
+            Di::call('cluster.prepare_msg_handler', ['msg' => $msg]);
         }
 
         // Check for custom routing
-        if (Di::has('custom_router')) { 
-            $php_classes = Di::call('custom_router', ['msg' => $msg]);
+        if (Di::has('cluster.custom_router')) { 
+            $php_classes = Di::call('cluster.custom_router', ['msg' => $msg]);
         } else { 
             $php_classes = $this->map->queryRoutes($msg);
         }
