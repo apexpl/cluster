@@ -30,7 +30,7 @@ class Local implements BrokerInterface
         // Get routes table
         $map = $cluster->getRoutesMap($cluster->instance_name);
         if (count($map->getAllRoutes()) == 0) { 
-            throw new ClusterZeroRoutesException("There are no routes configured to listen to msg_type $msg_type");
+            //throw new ClusterZeroRoutesException("There are no routes configured to listen to msg_type $msg_type");
         }
         $this->receiver = Di::make(ReceiverInterface::class, ['map' => $map]);
 

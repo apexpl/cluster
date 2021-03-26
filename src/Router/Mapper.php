@@ -15,7 +15,7 @@ class Mapper
 
     // Properties
     private array $routes_map = [];
-    private array $instance_map = [];
+    private array $instance_map = ['all' => []];
     private array $queues = [];
 
     /**
@@ -33,7 +33,7 @@ class Mapper
         // Get instance queues
         $in_queues = $this->instance_map[$instance_name] ?? $this->instance_map['all'];
         if (count($in_queues) == 0) { 
-            throw new ClusterZeroRoutesException("No queues defined for the instance '$instance_name', and no routes to install 'all' exist.");
+            //throw new ClusterZeroRoutesException("No queues defined for the instance '$instance_name', and no routes to instance 'all' exist.");
         }
 
         // Go through queues
