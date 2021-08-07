@@ -6,11 +6,11 @@
     "license": "MIT",
     "require": {
         "php": ">=8.0.0",
-        "php-amqplib/php-amqplib": "^2.12",
-        "monolog/monolog": "^2.2",
-        "symfony/yaml": "^5.2",
-        "apex/container": ">=0.1.0",
-        "symfony/string": "^5.2",
+        "php-amqplib/php-amqplib": "~2.12",
+        "monolog/monolog": "~2.2",
+        "symfony/yaml": "~5.2",
+        "apex/container": "~0.3",
+        "symfony/string": "~5.2",
         "psr/event-dispatcher": "^1.0"
     },
     "require-dev": {

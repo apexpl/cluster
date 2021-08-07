@@ -36,11 +36,16 @@ class Cluster extends Router
         public string $instance_name,
         public ?redis $redis = null,  
         private string $router_file = '', 
-        private string $container_file = '' 
+        private ?string $container_file = '' 
     ) {
 
-    // Setup container
-        $this->setupContainer();
+        // Setup container
+        if ($this->container_file !== null) { 
+            $this->setupContainer();
+        } else {
+            Di::set(__CLASS__, $this);
+            $this->loadRoutes($this->router_file);
+        }
 
     }
 

@@ -243,7 +243,6 @@ class RabbitMQ implements BrokerInterface
         // Return
         return $this->response;
 
-
     }
 
     /**

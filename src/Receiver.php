@@ -100,8 +100,8 @@ class Receiver implements ReceiverInterface
 
         // Check if class exists
         if (class_exists($class_name)) { 
-            $consumer = new $class_name();
-        } else { 
+            $consumer = Di::make($class_name);
+        } else {
             return false;
         }
 

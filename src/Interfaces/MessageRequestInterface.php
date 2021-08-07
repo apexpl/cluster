@@ -44,7 +44,7 @@ interface MessageRequestInterface
     /**
      * Get request
      */
-    public function getRequest():array;
+    public function getRequest():mixed;
 
     /**
      * Get the params of the request. 

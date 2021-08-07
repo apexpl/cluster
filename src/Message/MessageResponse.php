@@ -26,7 +26,7 @@ class MessageResponse implements MessageResponseInterface
     private string $instance_name = '';
     private string $routing_key;
     private array $caller;
-    private array $request;
+    private mixed $request;
 
     /**
      * Constructor
