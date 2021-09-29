@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": ">=8.0.0",
-        "php-amqplib/php-amqplib": "~2.12",
+        "php-amqplib/php-amqplib": "^3.0",
         "symfony/yaml": "~5.2",
         "apex/container": "~0.3",
         "symfony/string": "~5.2",
