@@ -20,14 +20,14 @@ return [
      * The message broker used.  This defaults to Local for new installations, but if already operating on multiple servers, 
      * modify this to RabbitMQ or any other message broker you are using.
      */
-    BrokerInterface::class => Local::class, 
-    //BrokerInterface::class => [RabbitMQ::class, ['host' => 'localhost', 'port' => 5672, 'user' => 'guest', 'password' => 'guest']], 
+    //BrokerInterface::class => Local::class, 
+    BrokerInterface::class => [RabbitMQ::class, ['host' => 'localhost', 'port' => 5672, 'user' => 'guest', 'password' => 'guest']], 
 
     /**
      * Front-end handler.  Generally the template engine you're using if supported, and allows front-end actions such as 
      * assigning template variables to be passed back to and processed by dispatcher.  See /docs/fe_handlers.md file for details.
      */
-    FeHandlerInterface::class => Apex\Cluster\FeHandlers\Generic::class,
+    FeHandlerInterface::class => Apex\Cluster\FeHandlers\Syrus::class,
 
     /**
      * PSR3 compliant logger, defaults to the popular Monolog package.  Set to null to disable logging.
@@ -37,26 +37,26 @@ return [
     /**
      * Timeout handler.  If RPC call times out, this is called.
      */
-    'timeout_seconds' => 3,  
-    //'timeout_handler' => function (MessageRequestInterface $msg) { echo "We've timed out with key: " . $msg->getRoutingKey() . "\n"; exit; }, 
+    'cluster.timeout_seconds' => 3,  
+    //'cluster.timeout_handler' => function (MessageRequestInterface $msg) { echo "We've timed out with key: " . $msg->getRoutingKey() . "\n"; exit; }, 
 
     /**
      * Message preparation handler.  If defined, this closure will be invoked for every incoming message and is meant to 
      * prepare your specific envrionment for processing of messages.
      */
-    //'prepare_msg_handler' => function (eventMessageInterface $msg) { }, 
+    //'cluster.prepare_msg_handler' => function (eventMessageInterface $msg) { }, 
 
     /**
      * Front-end Handler Callback.  If defined, will be invoked for every message dispatched upon receiving a response with 
      * a FeHandlerInterface object passed.  Used to update output to end-users.  See docs for details.
      */
-    //'fe_handler_callback' => function (FeHandlerInterface $handler) { }, 
+    //'cluster.fe_handler_callback' => function (FeHandlerInterface $handler) { }, 
 
     /**
      * Custom router.  This should almost always be left commented out, but allows you to utilize a custom router.  Should returnan 
      * associative array, keys being the response alias (eg. default) and values being the full namespace / class name that should be called for the given routing key.
      */
-    //'custom_router' => function(MessageRequestInterface $msg) { }, 
+    //'cluster.custom_router' => function(MessageRequestInterface $msg) { }, 
 
     /**
      * Additional items, you probably don't need to modify these.

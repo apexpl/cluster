@@ -62,7 +62,7 @@ class RabbitMQ implements BrokerInterface
         try {
             $this->conn = new AMQPStreamConnection($this->host, $this->port, $this->username, $this->password);
         } catch (AMQPConnectionClosedException $e) { 
-            throw new Exception('Unable to connect to RabbitMQ');
+            throw new \Exception('Unable to connect to RabbitMQ');
         }
 
         // Return
@@ -163,12 +163,12 @@ class RabbitMQ implements BrokerInterface
 
     // If RPC dispatcher
         if ($is_rpc_dispatcher === true) { 
-            $this->channel->wait(false, false, $timeout);
+            $this->channel->wait(null, false, $timeout);
             return;
     }
 
         // Wait for connections
-        while ($this->channel->is_consuming()) {
+        while ($this->channel->is_open()) {
             $this->channel->wait();
         }
 
