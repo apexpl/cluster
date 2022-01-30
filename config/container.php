@@ -44,7 +44,7 @@ return [
      * Message preparation handler.  If defined, this closure will be invoked for every incoming message and is meant to 
      * prepare your specific envrionment for processing of messages.
      */
-    //'cluster.prepare_msg_handler' => function (eventMessageInterface $msg) { }, 
+    //'cluster.prepare_msg_handler' => function (MessageRequestInterface $msg) { }, 
 
     /**
      * Front-end Handler Callback.  If defined, will be invoked for every message dispatched upon receiving a response with 
