@@ -44,7 +44,7 @@ class InstanceMap
     /**
      * Add route
      */
-    public function addRoute(string $queue, string $id, array $route_vars):void
+    public function addRoute(string $queue, string|int $id, array $route_vars):void
     {
 
         // Declare queue, if needed
